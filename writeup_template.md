@@ -22,11 +22,11 @@ The goals / steps of this project are the following:
 [image4]: ./output_images/undistortedimagetest.jpg "Undistorted"
 [image5]: ./output_images/warped_cali.jpg "Warped&Undistorted"
 [image6]: ./output_images/test_image_undistort.jpg "Single Picture Undistorted"
-[image7]: ./output_images/calibration5.jpg "calibration5.jpg"
-[image8]: ./output_images/original_cali.jpg "Original Image"
-[image9]: ./output_images/undistortedimagetest.jpg "Undistorted"
-[image10]: ./output_images/warped_cali.jpg "Warped&Undistorted"
-[image11]: ./output_images/example_output.jpg "Output"
+[image7]: ./output_images/color_comb.JPG "Color Threshold Combined"
+[image8]: ./output_images/grad_comb.JPG "Gradient Threshold Combined"
+[image9]: ./output_images/stacked.JPG "Color and Gradient Threshold Combined"
+[image10]: ./output_images/total_comb.JPG "Final Result of Threshold Combination"
+[image11]: ./output_images/birdeye.JPG "Birdeye Prespective Transform"
 [video1]: ./project_video.mp4 "Video" 
 
 ---
@@ -64,7 +64,7 @@ Below are the results:
 To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
 ![alt text][image6]
 
-#### 2. Usint different thresholds and find a good combination to find lane lines.
+#### 2. Using different thresholds and find a good combination to find lane lines. Then change the picture to a birdeye presprctive.
 
 Firstly I tried all the following thresholds to find the optimal combination for lane lines detection result:
 * grayscale
@@ -76,7 +76,17 @@ Firstly I tried all the following thresholds to find the optimal combination for
 
 I used a combination of color(R threshold & S threshold) and all three gradient thresholds to generate a binary image .  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
 
+#### Binary Result of Color Threshold combination(R & S)
 ![alt text][image7]
+#### Binary Result of Gradient Threshold combination(absolute value & direction & magnitude)
+![alt text][image8]
+#### Binary Result of the Color Threshold and Gradient Threshold Stacked
+![alt text][image9]
+#### Final Binary Result of Thresholds Combination
+![alt text][image10]
+
+Then the opencv function `cv2.warpPrespective` and the transform matrix is used to transform the result to a birdeye prespective.
+
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
