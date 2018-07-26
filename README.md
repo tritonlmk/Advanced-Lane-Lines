@@ -145,6 +145,7 @@ The histogram is shown below:
 ![alt text][image13]
 
 This part is also done in the 7th code cell of the .ipyb file.
+I also tried the convolution window method, but it performs really bad and I found it hard to define a appropriate kernel to do the convolution. So I just give up this method.
 
 I later write a fuction to find the best order(form 1 to 3) to fit the lanelines, and than using the function to calculate the curvature and the displacement between the car and the middle of the lane lines. Then I choose a polynomial to fit the valid lane lines points. I make the program to automatically find the best order o polynomial(from 1 to 3) to fit.
 You can see the code below:
@@ -220,8 +221,12 @@ Here's a [link to my video result](./project_video_output.mp4)
 
 ---
 
-### Discussion
+### Discussion/Improvement
 
-#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+#### 1. Improvement that may be applied further
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+I just used the result got from the sliding windows as a result and then output it. However, a filter should be used to judge whether the result is good or not. If it is bad or no valid lane line points is detected in a window, we should use the existing points to deduce and complete the missing or bad curves. It may also happen that some frams are too bad that either no lane lines could be found or the result are too bad. How to fix it from the previous frames remains a problem.
+
+We also need to somehow synchornize the left and right lane lines fit from the valid points detected by sliding windows. Thus the curvature could be more accurate and stable.
+
+Maybe those could explain why this program did not perform well on the challenge_video.mp4 and harder_challenge_video.mp4
