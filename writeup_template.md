@@ -74,6 +74,8 @@ Firstly I tried all the following thresholds to find the optimal combination for
 * Sobel Gradient: dirtction
 * Sobel Gradient: absolute value
 
+This part is included in the 5th code cell in the .ipyb file.
+
 I used a combination of color(R threshold & S threshold) and all three gradient thresholds to generate a binary image .  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
 
 #### Binary Result of Color Threshold combination(R & S)
@@ -88,35 +90,44 @@ I used a combination of color(R threshold & S threshold) and all three gradient 
 Then the opencv function `cv2.warpPrespective` and the transform matrix is used to transform the result to a birdeye prespective.
 
 
-#### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
+#### 3. Prespective Transformation.
 
-The code for my perspective transform includes a function called `warper()`, which appears in the first 3 code cell of the IPython notebook.  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
+In order to make the lane lines finding have better results and calculate the curvature of the lane lines, the binary result need to be changed to a birdeye perspective. And the change lane lines found back to the original prespection for visulation.
+So I calculated the transform matrix and the inverse transform matrix in the third code cell and print out the transform matrix in the 4th cell of the .ipyb file.
+
+The cell takes a source (`src`) and destination (`dst`) points to calculate the matrixs needed.  I chose the hardcode the source and destination points in the following manner:
 
 ```python
-src = np.float32(
-    [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],
-    [((img_size[0] / 6) - 10), img_size[1]],
-    [(img_size[0] * 5 / 6) + 60, img_size[1]],
-    [(img_size[0] / 2 + 55), img_size[1] / 2 + 100]])
-dst = np.float32(
-    [[(img_size[0] / 4), 0],
-    [(img_size[0] / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), 0]])
+    src = np.float32 ([
+        [220, 651],
+        [350, 577],
+        [828, 577],
+        [921, 651]
+    ])
+
+    dst = np.float32 ([
+            [220, 651],
+            [220, 577],
+            [921, 577],
+            [921, 651]
+        ])
+    M_bird = cv2.getPerspectiveTransform(src, dst)
+    M_bird_inv = cv2.getPerspectiveTransform(dst, src)
 ```
 
 This resulted in the following source and destination points:
 
 | Source        | Destination   | 
 |:-------------:|:-------------:| 
-| 585, 460      | 320, 0        | 
-| 203, 720      | 320, 720      |
-| 1127, 720     | 960, 720      |
-| 695, 460      | 960, 0        |
+| 320, 651      | 220, 651      | 
+| 350, 557      | 220, 577      |
+| 828, 557      | 960, 577      |
+| 921, 651      | 921, 651      |
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
-![alt text][image4]
+#### Birdeye View Binary Result
+![alt text][image11]
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
