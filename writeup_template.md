@@ -16,7 +16,7 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./output_images/calibration4.jpg
+[image1]: ./output_images/calibration4.jpg 
 [image2]: ./output_images/calibration5.jpg
 [image3]: ./output_images/binary_combo_example.jpg "Binary Example"
 [image4]: ./output_images/warped_straight_lines.jpg "Warp Example"
@@ -39,7 +39,8 @@ I then used the output `objpoints` and `imgpoints` to compute the camera calibra
 I used images in the file `./camera_cal` to calibrate the camera. However, there are two images that the `cv2.findChessboardCorners`, which are shown below:
 
 #### Image that cv2.findChessboardCorners failed to find corners (calibration4.jpg & calibration5.jpg)
-![alt text][image1]     ![alt text][image2]
+![alt text][image1]
+![alt text][image2]
 
 ### Pipeline (single images)
 
