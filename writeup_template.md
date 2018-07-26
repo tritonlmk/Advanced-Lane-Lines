@@ -21,7 +21,12 @@ The goals / steps of this project are the following:
 [image3]: ./output_images/original_cali.jpg "Original Image"
 [image4]: ./output_images/undistortedimagetest.jpg "Undistorted"
 [image5]: ./output_images/warped_cali.jpg "Warped&Undistorted"
-[image6]: ./output_images/example_output.jpg "Output"
+[image6]: ./output_images/test_image_undistort.jpg "Single Picture Undistorted"
+[image7]: ./output_images/calibration5.jpg "calibration5.jpg"
+[image8]: ./output_images/original_cali.jpg "Original Image"
+[image9]: ./output_images/undistortedimagetest.jpg "Undistorted"
+[image10]: ./output_images/warped_cali.jpg "Warped&Undistorted"
+[image11]: ./output_images/example_output.jpg "Output"
 [video1]: ./project_video.mp4 "Video" 
 
 ---
@@ -30,7 +35,7 @@ The goals / steps of this project are the following:
 
 #### 1. This process will calibrate the camera in orderto make the picture reflects the real words better.
 
-The code for this step is contained in the first code cell of the IPython notebook located in "./LaneLines_finding.ipynb" 
+The code for this step is contained in the first three code cell of the IPython notebook located in "./LaneLines_finding.ipynb" 
 
 It start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here assumes the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time when all chessboard corners in a test image are successfully detected.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection. And `imagepoints` could be found using `cv2.findChessboardCorners` function.
 
@@ -57,17 +62,25 @@ Below are the results:
 #### 1. Provide an example of a distortion-corrected image.
 
 To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
-![alt text][image2]
+![alt text][image6]
 
-#### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
+#### 2. Usint different thresholds and find a good combination to find lane lines.
 
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
+Firstly I tried all the following thresholds to find the optimal combination for lane lines detection result:
+* grayscale
+* R threshold in RGB
+* S threshold in HLS
+* Sobel Gradient: magnitude
+* Sobel Gradient: dirtction
+* Sobel Gradient: absolute value
 
-![alt text][image3]
+I used a combination of color(R threshold & S threshold) and all three gradient thresholds to generate a binary image .  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
+
+![alt text][image7]
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
+The code for my perspective transform includes a function called `warper()`, which appears in the first 3 code cell of the IPython notebook.  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
 
 ```python
 src = np.float32(
