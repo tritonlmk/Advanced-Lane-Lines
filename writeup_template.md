@@ -27,6 +27,8 @@ The goals / steps of this project are the following:
 [image9]: ./output_images/stacked.JPG "Color and Gradient Threshold Combined"
 [image10]: ./output_images/total_comb.JPG "Final Result of Threshold Combination"
 [image11]: ./output_images/birdeye.JPG "Birdeye Prespective Transform"
+[image12]: ./output_images/slide_win.JPG "Result of the Sliding Window"
+
 [video1]: ./project_video.mp4 "Video" 
 
 ---
@@ -77,6 +79,8 @@ Firstly I tried all the following thresholds to find the optimal combination for
 This part is included in the 5th code cell in the .ipyb file.
 
 I used a combination of color(R threshold & S threshold) and all three gradient thresholds to generate a binary image .  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
+
+One important thing about the Thresholding is that: do not use the gray scale threshold, for it will give too much noise when the color of the road base changes. Also, the gradient direction threshold also have too much noise, so the `|` or logic is used(while other thresholds use `&` and logic).
 
 #### Binary Result of Color Threshold combination(R & S)
 ![alt text][image7]
@@ -131,13 +135,14 @@ I verified that my perspective transform was working as expected by drawing the 
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+Then I used the sliding window method introduced in the udacity courses to detect the lane lines
+did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
 
-![alt text][image5]
+![alt text][image12]
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+I did this in 6th code cell of the .ipyb file.
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
