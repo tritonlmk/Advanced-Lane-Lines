@@ -16,11 +16,11 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./output_images/calibration4.jpg 
-[image2]: ./output_images/calibration5.jpg
-[image3]: ./output_images/binary_combo_example.jpg "Binary Example"
-[image4]: ./output_images/warped_straight_lines.jpg "Warp Example"
-[image5]: ./output_images/color_fit_lines.jpg "Fit Visual"
+[image1]: ./output_images/calibration4.jpg "calibration4.jpg"
+[image2]: ./output_images/calibration5.jpg "calibration5.jpg"
+[image3]: ./output_images/original_cali.jpg "Original Image"
+[image4]: ./output_images/undistortedimagetest.jpg "Undistorted"
+[image5]: ./output_images/warped_cali.jpg "Warped&Undistorted"
 [image6]: ./output_images/example_output.jpg "Output"
 [video1]: ./project_video.mp4 "Video" 
 
@@ -41,6 +41,16 @@ I used images in the file `./camera_cal` to calibrate the camera. However, there
 #### Image that cv2.findChessboardCorners failed to find corners (calibration4.jpg & calibration5.jpg)
 ![alt text][image1]
 ![alt text][image2]
+
+And I used the `cv2.getPerspectiveTransform` to get the prespective transform matrix and use `cv2.warpPerspective` to change the image prespective(birdview for lane lines).
+Below are the results:
+
+#### Original Image vs Undistorted Image vs Warped&Undistorted Image
+
+![alt text][image3]
+![alt text][image4]
+![alt text][image5]
+
 
 ### Pipeline (single images)
 
