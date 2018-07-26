@@ -1,4 +1,4 @@
-## Traditional Lane Lines Finding
+## Advanced Lane Lines Finding
 
 
 **Advanced Lane Finding Project**
@@ -22,23 +22,25 @@ The goals / steps of this project are the following:
 [image4]: ./output_images/warped_straight_lines.jpg "Warp Example"
 [image5]: ./output_images/color_fit_lines.jpg "Fit Visual"
 [image6]: ./output_images/example_output.jpg "Output"
-[video1]: ./project_video.mp4 "Video"
-
-## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
-
-### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
+[video1]: ./project_video.mp4 "Video" 
 
 ---
 
-### Writeup / README
+### Writeup
 
-#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  [Here](https://github.com/udacity/CarND-Advanced-Lane-Lines/blob/master/writeup_template.md) is a template writeup for this project you can use as a guide and a starting point.  
+The project follows the steps mentioned below.
 
-You're reading it!
+#### 1. Camera Calibration
+#### 2. Undistort and warp the original image
+#### 3. Detect Lane Lines using sliding windows method
+#### 4. Draw lanes on the original picture
+#### 5. Calculate the Curvature and Displacement between the car and the middle of the lane lines
+#### 6. Process the video
+
 
 ### Camera Calibration
 
-#### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
+#### 1. This process will calibrate the camera in orderto make the picture reflects the real words better.
 
 The code for this step is contained in the first code cell of the IPython notebook located in "./examples/example.ipynb" (or in lines # through # of the file called `some_file.py`).  
 
