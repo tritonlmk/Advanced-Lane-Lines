@@ -28,7 +28,8 @@ The goals / steps of this project are the following:
 [image10]: ./output_images/total_comb.JPG "Final Result of Threshold Combination"
 [image11]: ./output_images/birdeye.JPG "Birdeye Prespective Transform"
 [image12]: ./output_images/slide_win.JPG "Result of the Sliding Window"
-
+[image13]: ./output_images/histogram.JPG "Histogram used to find starting points"
+[image14]: ./output_images/test_final.JPG "Visualization Result"
 [video1]: ./project_video.mp4 "Video" 
 
 ---
@@ -135,28 +136,87 @@ I verified that my perspective transform was working as expected by drawing the 
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-Then I used the sliding window method introduced in the udacity courses to detect the lane lines
-did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+This part is done in the 7th code cell of the .ipyb file.
 
+Then I used the sliding window method introduced in the udacity courses to detect the lane lines. To find the starting point I used the histogram of the lower half of the picture along x direction to find the peak and use its y location as the starting point.
+The histogram is shown below:
+
+#### Histogram used to find starting points to slid windows
+![alt text][image13]
+
+This part is also done in the 7th code cell of the .ipyb file.
+
+I later write a fuction to find the best order(form 1 to 3) to fit the lanelines, and than using the function to calculate the curvature and the displacement between the car and the middle of the lane lines. Then I choose a polynomial to fit the valid lane lines points. I make the program to automatically find the best order o polynomial(from 1 to 3) to fit.
+You can see the code below:
+
+```python
+def best_poly_order(y, x):
+    # 1st order
+    poly1 = np.polyfit(y,x,1)
+    p1 = np.poly1d(poly1)
+    pred1 = p1(y)
+    mse1 = mean_squared_error(x, pred1)
+    # 2nd order
+    poly2 = np.polyfit(y,x,2)
+    p2 = np.poly1d(poly2)
+    pred2 = p2(y)
+    mse2 = mean_squared_error(x, pred2)
+    # 3rd order
+    poly3 = np.polyfit(y,x,2)
+    p3 = np.poly1d(poly3)
+    pred3 = p3(y)
+    mse3 = mean_squared_error(x, pred3)
+    minimum = mse1
+    order = 1
+    if minimum > mse2:
+        minimum = mse2
+        order = 2
+    elif minimum > mse3:
+        minimum = mse3
+        order = 3
+    
+    if order == 1:
+        return order, poly1
+    elif order == 2:
+        return order, poly2
+    else:
+        return order, poly3
+```
+
+Later, I could the previous result(lane lines fit) to find the starting point of the sliding window in a frame.
+You can see the code:
+
+```python
+   else:
+        left_lane_poly = np.poly1d(left_fit)
+        left_lane_inds = ((nonzerox > (left_lane_poly(nonzeroy) - margin)) & \
+                          (nonzerox < (left_lane_poly(nonzeroy) + margin)))
+        right_lane_poly = np.poly1d(right_fit)
+        right_lane_inds = ((nonzerox > (right_lane_poly(nonzeroy) - margin)) & \
+                           (nonzerox < (right_lane_poly(nonzeroy) + margin)))
+```
+
+#### result of the lane lines( valid points)
 ![alt text][image12]
 
-#### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
+#### 5. Curvature of lane lines and Positon of vehicle
 
-I did this in 6th code cell of the .ipyb file.
+I did this in 6th code cell of the .ipyb file. The function of calculatin the curvature from a polynomial already exists, so I just need to implement it into the code.(Do not forget the order of the polynomial
 
-#### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
+#### 6. Visualization of the lane lines detected
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+I implemented also in code cell 7 in the .ipyb file. Using the inverse prespective transform matrix to transform the result back to the original perspective. Then use `cv2.addWeighted` function to combine it with the origianl one
 
-![alt text][image6]
+# Lane Lines Visualization of the test image
+![alt text][image14]
 
 ---
 
 ### Pipeline (video)
 
-#### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
+#### 1. Below is a link to the result video
 
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video result](./project_video_output.mp4)
 
 ---
 
