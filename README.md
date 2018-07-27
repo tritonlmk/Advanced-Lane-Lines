@@ -1,4 +1,4 @@
-## Advanced Lane Lines Finding
+# Advanced Lane Lines Finding
 
 * The Project used traditional method(sobel gradient and sliding windows) to detect lane lines in a video and output it as project_video_output.mp4
 
