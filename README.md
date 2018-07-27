@@ -35,9 +35,9 @@ The goals / steps of this project are the following:
 
 ---
 
-### Camera Calibration
+## Camera Calibration
 
-#### 1. This process will calibrate the camera in orderto make the picture reflects the real words better.
+### 1. This process will calibrate the camera in orderto make the picture reflects the real words better.
 
 The code for this step is contained in the first three code cell of the IPython notebook located in "./LaneLines_finding.ipynb" 
 
@@ -63,12 +63,12 @@ Below are the results:
 
 ### Pipeline (single images)
 
-#### 1. Provide an example of a distortion-corrected image.
+### 1. Provide an example of a distortion-corrected image.
 
 To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
 ![alt text][image6]
 
-#### 2. Using different thresholds and find a good combination to find lane lines. Then change the picture to a birdeye presprctive.
+### 2. Using different thresholds and find a good combination to find lane lines. Then change the picture to a birdeye presprctive.
 
 Firstly I tried all the following thresholds to find the optimal combination for lane lines detection result:
 * grayscale
@@ -96,7 +96,7 @@ One important thing about the Thresholding is that: do not use the gray scale th
 Then the opencv function `cv2.warpPrespective` and the transform matrix is used to transform the result to a birdeye prespective.
 
 
-#### 3. Prespective Transformation.
+## 3. Prespective Transformation.
 
 In order to make the lane lines finding have better results and calculate the curvature of the lane lines, the binary result need to be changed to a birdeye perspective. And the change lane lines found back to the original prespection for visulation.
 So I calculated the transform matrix and the inverse transform matrix in the third code cell and print out the transform matrix in the 4th cell of the .ipyb file.
@@ -135,7 +135,7 @@ I verified that my perspective transform was working as expected by drawing the 
 #### Birdeye View Binary Result
 ![alt text][image11]
 
-#### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
+### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
 This part is done in the 7th code cell of the .ipyb file.
 
@@ -201,11 +201,11 @@ You can see the code:
 #### result of the lane lines( valid points)
 ![alt text][image12]
 
-#### 5. Curvature of lane lines and Positon of vehicle
+### 5. Curvature of lane lines and Positon of vehicle
 
 I did this in 6th code cell of the .ipyb file. The function of calculatin the curvature from a polynomial already exists, so I just need to implement it into the code.(Do not forget the order of the polynomial
 
-#### 6. Visualization of the lane lines detected
+### 6. Visualization of the lane lines detected
 
 I implemented also in code cell 7 in the .ipyb file. Using the inverse prespective transform matrix to transform the result back to the original perspective. Then use `cv2.addWeighted` function to combine it with the origianl one
 
@@ -224,7 +224,7 @@ Here's a [link to my video result](./project_video_output.mp4)
 
 ### Discussion/Improvement
 
-#### 1. Improvement that may be applied further
+### 1. Improvement that may be applied further
 
 I just used the result got from the sliding windows as a result and then output it. However, a filter should be used to judge whether the result is good or not. If it is bad or no valid lane line points is detected in a window, we should use the existing points to deduce and complete the missing or bad curves. It may also happen that some frams are too bad that either no lane lines could be found or the result are too bad. How to fix it from the previous frames remains a problem.
 
