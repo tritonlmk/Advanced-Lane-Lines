@@ -226,7 +226,7 @@ Here's a [link to my video result](./project_video_output.mp4)
 
 ### 1. Improvement that may be applied further
 
-I just used the result got from the sliding windows as a result and then output it. However, a filter should be used to judge whether the result is good or not. If it is bad or no valid lane line points is detected in a window, we should use the existing points to deduce and complete the missing or bad curves. It may also happen that some frams are too bad that either no lane lines could be found or the result are too bad. How to fix it from the previous frames remains a problem.
+I just used the result got from the sliding windows as a result and then output it. However, a filter should be used to judge whether the result is good or not. If it is bad or no valid lane line points is detected in a window, we should use the existing points to deduce and complete the missing or bad curves. It may also happen that some frames are too bad that either no lane lines could be found or the results are too bad. How to fix it from the previous frames remains a problem.
 
 We also need to somehow synchornize the left and right lane lines fit from the valid points detected by sliding windows. Thus the curvature could be more accurate and stable.
 
